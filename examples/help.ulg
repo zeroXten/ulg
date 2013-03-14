@@ -1,0 +1,15 @@
+# This line is ignored
+
+# Include a fole
+include common-opts.ulg
+
+# An option
+option rankdir TB
+
+# Graph
+[box]	= normal ==>	(oval|blue)
+oval	=dot|red=o	<diamond>
+oval	..box....x	box
+box	--diamond--<>	diamond
+
+another box	=== no arrow ==	    {hexagon}

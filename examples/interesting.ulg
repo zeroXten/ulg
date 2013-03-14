@@ -1,0 +1,13 @@
+option layout dot
+option overlap false
+option splines true
+
+include backoffice.ulg
+
+Internet	==http==>	(web dmz|orange)
+
+web dmz		==8080==>	[app stack 1|blue]
+web dmz		==8000==>	[app stack 2|purple]
+
+app stack 1	==25==>		internet
+app stack 2	==5432|red==>   [database|green]
