@@ -51,10 +51,12 @@ class ULG
     puts "DEBUG #{msg}" if @debug == 1
   end
 
-  def draw(file)
+  def draw(files)
     dputs "Rex: #{@arrow_regex}"
 
-    parse file
+    files.each do |file|
+      parse file
+    end
 
     g = GraphViz.new :G, @graphviz_options
 
@@ -81,7 +83,11 @@ class ULG
     end
 
     if not @destfile
-      @destfile = "#{file}.#{@output}"
+      if files.size == 1
+        @destfile = "#{files[0]}.#{@output}"
+      else
+        @destfile = "graph.#{@output}"
+      end
     end
 
     puts "Saving output to #{@destfile}"
@@ -96,8 +102,13 @@ class ULG
       return
     end
 
-    fh = File.new file, "r"
-    while line = fh.gets
+    if file == "stdin"
+      contents = STDIN.read
+    else
+      contents = File.read(file)
+    end
+
+    contents.split("\n").each do |line|
       parse_line line
     end
 
@@ -225,8 +236,9 @@ ulg = ULG.new
 opt = Getopt::Std.getopts("f:o:s:dh")
 
 def usage
-  puts "Usage: ulg.rb -f FILE [-o OUTPUT] [-s FILE] [-d]"
-  puts "  -f FILE    File to read"
+  puts "Usage: ulg.rb [-o OUTPUT] [-s FILE] [-d] FILE FILE..."
+  puts "\nReads from stdin if no input FILE given\n\n"
+  puts "Other options:\n\n"
   puts "  -o OUTPUT  Output format (png, dot, svg). Default png"
   puts "  -s FILE    Save to file"
   puts "  -d         Debug mode"
@@ -250,11 +262,8 @@ if opt["o"] and [ "png", "dot", "svg" ].include? opt["o"]
   ulg.output = opt["o"]
 end
 
-if opt["f"]
-  ulg.draw opt["f"]
+if ARGV.empty?
+  ulg.draw [ "stdin" ]
 else
-  puts "File missing"
-  usage
+  ulg.draw ARGV
 end
-
-
