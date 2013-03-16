@@ -43,13 +43,67 @@ Or
     (test1) ==> [test2]
     EOF
 
-Run
+Other options:
 
     $ ulg -h
+    Usage: ulg.rb [-o OUTPUT] [-s FILE] [-d] FILE FILE...
 
-for more options.
+    Reads from stdin if no input FILE given
+
+    Other options:
+
+      -o OUTPUT  Output format (png, dot, svg). Default png
+      -s FILE    Save to file
+      -d         Debug mode
+      -h         This help
 
 Syntax
 ======
+
+    # A comment
+
+    # Set global graphviz options
+    option NAME VALUE
+
+    # Include nodes and edges from other files
+    include FILE
+
+    # General format is NODE ARROW NODE
+    nodeA ==> nodeB
+
+Nodes
+-----
+
+* `node A` - box
+* `[node A]` - box
+* `(node A)` - oval
+* `<node A>` - diamond
+* `{node A}` - hexagon
+* `[node A|red]` - label is red
+
+Edge Lines
+----------
+
+* `==` - solid
+* `--` - dashed
+* `..` - dotted
+* `== label ==` - edge label
+* `== label|red ==` - label is red
+
+Arrow Head
+----------
+
+* `==` - none
+* `==>` - normal
+* `==<>` - diamond
+* `==x` - box
+* `==o` - dot
+
+Note: Arrow tails are not currently supported.
+
+Any colour understood by graphviz should work for edge and node labels.
+
+Tutorial
+========
 
 See [Ultra Light Graphs](http://blog.0x10.co.uk/2013/03/ultra-light-graphs-ulg.html)
