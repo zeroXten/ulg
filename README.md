@@ -81,6 +81,18 @@ Nodes
 * `{node A}` - hexagon
 * `[node A|red]` - label is red
 
+Style is determined by the first occurance of a node, so you can do this
+
+    (node A|green) ==> [node B|red]
+    node A         ==> {node C}
+
+Instead of this
+
+    (node A|green) ==> [node B|red]
+    (node A|green) ==> {node C}
+   
+So you only have to update a style in one place.
+
 Edge Lines
 ----------
 
@@ -89,6 +101,8 @@ Edge Lines
 * `..` - dotted
 * `== label ==` - edge label
 * `== label|red ==` - label is red
+
+At least two arrow characters are required. If using a label, at least one character must be on either side of the label.
 
 Arrow Head
 ----------
