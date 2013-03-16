@@ -51,11 +51,20 @@ class ULG
     puts "DEBUG #{msg}" if @debug == 1
   end
 
+  def wputs(msg)
+    puts "WARN #{msg}"
+  end
+
   def draw(files)
     dputs "Rex: #{@arrow_regex}"
 
     files.each do |file|
       parse file
+    end
+
+    if @nodes.size == 0
+      wputs "No nodes found so not saving any output"
+      return
     end
 
     g = GraphViz.new :G, @graphviz_options
@@ -98,14 +107,19 @@ class ULG
 
     puts "Reading #{file}"
     if @read_files.include? file
-      dputs "Skipping #{file} as I've seen it before"
+      wputs "Skipping #{file} as I've seen it before"
       return
     end
 
     if file == "stdin"
       contents = STDIN.read
     else
-      contents = File.read(file)
+      if File.readable? file
+        contents = File.read(file)
+      else
+        wputs "Cannot read file #{file}, skipping"
+        return
+      end
     end
 
     contents.split("\n").each do |line|
