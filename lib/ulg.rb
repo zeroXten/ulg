@@ -1,5 +1,3 @@
-#!/usr/bin/env ruby
-
 require "getopt/std"
 require "graphviz"
 
@@ -244,40 +242,4 @@ class ULG
     return name.downcase
   end
 
-end
-
-ulg = ULG.new
-opt = Getopt::Std.getopts("f:o:s:dh")
-
-def usage
-  puts "Usage: ulg.rb [-o OUTPUT] [-s FILE] [-d] FILE FILE..."
-  puts "\nReads from stdin if no input FILE given\n\n"
-  puts "Other options:\n\n"
-  puts "  -o OUTPUT  Output format (png, dot, svg). Default png"
-  puts "  -s FILE    Save to file"
-  puts "  -d         Debug mode"
-  puts "  -h         This help"
-  exit
-end
-
-if opt["h"]
-  usage
-end
-
-if opt["d"]
-  ulg.debug
-end
-
-if opt["s"]
-  ulg.destfile = opt["s"]
-end
-
-if opt["o"] and [ "png", "dot", "svg" ].include? opt["o"]
-  ulg.output = opt["o"]
-end
-
-if ARGV.empty?
-  ulg.draw [ "stdin" ]
-else
-  ulg.draw ARGV
 end

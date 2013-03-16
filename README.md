@@ -8,7 +8,11 @@ Ultra Light Graphs, or ULG, is a simple way of creating graph images from nothin
 Installaton
 ===========
 
-ULG is just a ruby script that uses two gems. Install ruby, for example using rvm, then run
+Install the gem as usual
+
+    $ gem install ulg
+
+ULG requires ruby-graphviz and getopt
 
     $ gem install ruby-graphviz
     $ gem install getopt
@@ -16,11 +20,32 @@ ULG is just a ruby script that uses two gems. Install ruby, for example using rv
 Usage
 =====
 
-    $ ./ulg.rb -f file.ulg
+You can give it a file
 
-This will create file.ulg.png by default. Run
+    $ ulg file.ulg
 
-    $ ./ulg.rb -h
+This will create file.ulg.png by default. 
+
+You can give it multiple files
+
+    $ ulg file1.ulg file2.ulg
+
+ULG will parse each file in the order specified, effectively concatinating them into one big file. Default output file is graph.png.
+
+You can read from STDIN, especially useful if copying and pasting some graphs from documentation etc
+
+    $ ulg
+    (test1) ==> [test2]
+
+Or
+
+    $ ulg <<EOF
+    (test1) ==> [test2]
+    EOF
+
+Run
+
+    $ ulg -h
 
 for more options.
 
