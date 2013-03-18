@@ -4,7 +4,9 @@ option splines true
 
 include backoffice.ulg
 
-Internet	==http==>	(web dmz|orange)
+clear internet
+
+Internet|green	==http==>	(web dmz|orange)
 
 web dmz		==8080==>	[app stack 1|blue]
 web dmz		==8000==>	[app stack 2|purple]

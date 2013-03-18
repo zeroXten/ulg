@@ -70,12 +70,12 @@ class ULG
     @edges.keys.each do |from|
       @edges[from].keys.each do |to|
 
-	from_label = @nodes[from]["label"]
-	from_opts = @nodes[from].clone
+	from_label = @nodes[from]["attr"]["label"]
+	from_opts = @nodes[from]["attr"].clone
 	from_opts.delete "label"
 
-	to_label = @nodes[to]["label"]
-	to_opts = @nodes[to].clone
+	to_label = @nodes[to]["attr"]["label"]
+	to_opts = @nodes[to]["attr"].clone
 	to_opts.delete "label"
 
 	dputs "Building from node for #{from_label} as #{from}"
@@ -84,7 +84,7 @@ class ULG
         to_node = g.add_nodes to_label, to_opts
 
 	dputs "Building edge for #{from} #{to}"
-        g.add_edges from_node, to_node, @edges[from][to]
+        g.add_edges from_node, to_node, @edges[from][to]["attr"]
 
       end
     end
@@ -137,6 +137,9 @@ class ULG
     when /^\s*include\s+(?<file>.*)$/i
       parse $~[:file]
 
+    when /^\s*clear\s+(?<node>.*)$/i
+      clear $~[:node]
+
     when /^\s*#{@arrow_regex}\s*$/
       from = add_node $~[:from_open], $~[:from_label], $~[:from_color], $~[:from_close]
       to = add_node $~[:to_open], $~[:to_label], $~[:to_color], $~[:to_close]
@@ -149,12 +152,27 @@ class ULG
     @graphviz_options[option] = value
   end
 
+  def clear(node)
+    node.lstrip.rstrip!
+    name = label_to_name node
+
+    if @nodes.has_key? name
+      dputs "Clearing node #{node}"
+      @nodes[name]['cleared'] = true
+      @nodes[name]['attr']['shape'] = 'box'
+      @nodes[name]['attr']['fontcolor'] = 'black'
+    else
+      wputs "Node not found #{node}"
+    end
+  end
+
   def add_node(open, label, color, close)
 
     label.lstrip.rstrip!
     name = label_to_name label
 
-    if @nodes.has_key? name
+    if @nodes.has_key? name and not @nodes[name].has_key? 'cleared'
+      dputs "Skipping node #{name} as already defined"
       return name
     end
 
@@ -177,7 +195,7 @@ class ULG
       shape = "box"
     end
 
-    @nodes[name] = { "shape" => shape, "label" => label, "fontcolor" => color }
+    @nodes[name] = { "attr" => { "shape" => shape, "label" => label, "fontcolor" => color } }
 
     return name
   end
@@ -215,7 +233,7 @@ class ULG
       color = "black"
     end
 
-    @edges[from_name][to_name] = { "style" => style, "label" => label, "arrowtail" => arrowtail, "arrowhead" => arrowhead, "fontcolor" => color }
+    @edges[from_name][to_name] = { "attr" =>  { "style" => style, "label" => label, "arrowtail" => arrowtail, "arrowhead" => arrowhead, "fontcolor" => color } }
   end
 
   def parse_arrow(arrow)
