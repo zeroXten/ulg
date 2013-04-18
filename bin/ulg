@@ -2,8 +2,10 @@
 
 require 'ulg'
 
+VERSION = "0.2.1"
+
 ulg = ULG.new
-opt = Getopt::Std.getopts("f:o:s:dh")
+opt = Getopt::Std.getopts("f:o:s:dhv")
 
 def usage
   puts "Usage: ulg.rb [-o OUTPUT] [-s FILE] [-d] FILE FILE..."
@@ -12,7 +14,13 @@ def usage
   puts "  -o OUTPUT  Output format (png, dot, svg). Default png"
   puts "  -s FILE    Save to file"
   puts "  -d         Debug mode"
+  puts "  -v         Show version"
   puts "  -h         This help"
+  exit
+end
+
+if opt["v"]
+  puts "Version #{VERSION}"
   exit
 end
 
