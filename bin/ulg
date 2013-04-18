@@ -2,7 +2,7 @@
 
 require 'ulg'
 
-VERSION = "0.2.1"
+VERSION = "0.2.2"
 
 ulg = ULG.new
 opt = Getopt::Std.getopts("f:o:s:dhv")

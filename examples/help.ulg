@@ -8,7 +8,7 @@ option rankdir TB
 
 # Graph
 [box]	= normal ==>	(oval|blue)
-oval	=dot|red=o	<diamond>
+oval	= dot|red =o	<diamond>
 oval	..box....x	box
 box	--diamond--<>	diamond
 
