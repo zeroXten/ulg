@@ -1,8 +1,9 @@
 #!/usr/bin/env ruby
 
+require "getopt/std"
 require 'ulg'
 
-VERSION = "0.2.2"
+VERSION = "0.2.3"
 
 ulg = ULG.new
 opt = Getopt::Std.getopts("f:o:s:dhv")

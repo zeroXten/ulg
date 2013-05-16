@@ -1,9 +1,8 @@
-require "getopt/std"
 require "graphviz"
 
 class ULG
 
-  attr_accessor :destfile, :output
+  attr_accessor :destfile, :output, :nodes, :edges, :arrow_regex
 
   def initialize
     @debug = 0
@@ -38,7 +37,7 @@ class ULG
     @rex << '(?<to_color>\|[^\]\>\)\} ]+)?'
     @rex << '(?<to_close>[\]\>\)\}]*)'
 
-    @arrow_regex = @rex.join('\s*')
+    @arrow_regex = @rex.join '\s*'
   end
 
   def debug
@@ -56,6 +55,7 @@ class ULG
   def draw(files)
     dputs "Rex: #{@arrow_regex}"
 
+    # Move files parsing out of here
     files.each do |file|
       parse file
     end
@@ -65,6 +65,7 @@ class ULG
       return
     end
 
+    # Move this into a generate function?
     g = GraphViz.new :G, @graphviz_options
 
     @edges.keys.each do |from|
@@ -102,6 +103,8 @@ class ULG
   end
 
   def parse(file)
+ 
+    # Iterate over array of files if needed
 
     puts "Reading #{file}"
     if @read_files.include? file
@@ -168,7 +171,7 @@ class ULG
 
   def add_node(open, label, color, close)
 
-    label.lstrip.rstrip!
+    label = label.rstrip.lstrip
     name = label_to_name label
 
     if @nodes.has_key? name and not @nodes[name].has_key? 'cleared'
@@ -202,7 +205,7 @@ class ULG
 
   def add_edge(from, to, from_arrow, open, label, color, close, to_arrow)
 
-    label.lstrip.rstrip!
+    label = label.rstrip.lstrip
 
     from_name = label_to_name from
     to_name = label_to_name to

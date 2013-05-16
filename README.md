@@ -134,3 +134,15 @@ Tutorial
 ========
 
 See [Ultra Light Graphs](http://blog.0x10.co.uk/2013/03/ultra-light-graphs-ulg.html)
+
+Changelog
+=========
+
+ULG 0.2.3, 2013-05-15
+---------------------
+
+* Started a change log :D
+* Fix whitespace left at the end of labels
+* Added some unit tests (more to come)#
+
+
