@@ -1,5 +1,6 @@
 require 'test/unit'
 require 'ulg'
+require 'pp'
 
 class ULGTest < Test::Unit::TestCase
 
@@ -126,7 +127,8 @@ class ULGTest < Test::Unit::TestCase
 
       test_data[test_case]['edge']['attr'].keys.each do |attr_name|
         expected_value = test_data[test_case]['edge']['attr'][attr_name]
-        value = ulg.edges['anode']['bnode']['attr'][attr_name]
+        name = test_data[test_case]['edge']['attr'].has_key?('label') ? "edge" : "none"
+        value = ulg.edges['anode']['bnode'][name]['attr'][attr_name]
         assert_equal expected_value, value
       end
 

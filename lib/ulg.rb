@@ -84,9 +84,10 @@ class ULG
 	dputs "Building to node for #{to_label} as #{to}"
         to_node = g.add_nodes to_label, to_opts
 
-	dputs "Building edge for #{from} #{to}"
-        g.add_edges from_node, to_node, @edges[from][to]["attr"]
-
+        @edges[from][to].keys.each do |edge|
+    	  dputs "Building edge #{edge} for #{from} #{to}"
+          g.add_edges from_node, to_node, @edges[from][to][edge]["attr"]
+        end
       end
     end
 
@@ -210,13 +211,18 @@ class ULG
     from_name = label_to_name from
     to_name = label_to_name to
 
-    return if @edges.has_key? from and @edges[from].has_key? to
-
-    dputs "Adding edge for #{from_name} #{to_name}"
-
-    if not @edges.has_key? from_name
-      @edges[from_name] = {}
+    if not label.empty?
+      edge_name = label_to_name label
+    else
+      edge_name = "none"
     end
+
+    return if @edges.has_key? from_name and @edges[from_name].has_key? to_name and @edges[from_name][to_name].has_key? edge_name
+
+    dputs "Adding edge #{edge_name} for #{from_name} #{to_name}"
+
+    @edges[from_name] = {} unless @edges.has_key? from_name
+    @edges[from_name][to_name] = {} unless @edges[from_name].has_key? to_name
 
     arrowtail = parse_arrow from_arrow
     arrowhead = parse_arrow to_arrow
@@ -236,7 +242,7 @@ class ULG
       color = "black"
     end
 
-    @edges[from_name][to_name] = { "attr" =>  { "style" => style, "label" => label, "arrowtail" => arrowtail, "arrowhead" => arrowhead, "fontcolor" => color } }
+    @edges[from_name][to_name][edge_name] = { "attr" =>  { "style" => style, "label" => label, "arrowtail" => arrowtail, "arrowhead" => arrowhead, "fontcolor" => color } }
   end
 
   def parse_arrow(arrow)
