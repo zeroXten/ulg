@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'ulg'
-  s.version     = '0.2.5'
+  s.version     = '0.2.6'
   s.date        = '2013-09-18'
   s.summary     = "Ultra Light Graphs"
   s.description = "Ultra Light Graphs - Text editor friendly markup language for creating simple graphs."

@@ -26,8 +26,8 @@ class ULG
     @rex << '\s(?<from_arrow>[\<\>ox]*)'
 
     @rex << '(?<edge_open>[\=\-\.]+)'
-    @rex << '(?<edge_label>[^\=\-\|\.]*)'
-    @rex << '(?<edge_color>\|[^\=\-\|\. ]+)?'
+    @rex << '(?<edge_label>(?:[^\=\-\|\.][^\|]*?[^\=\-\|\.])?)'
+    @rex << '(?<edge_color>\|[^\=\-\|\.\ ]+)?'
     @rex << '(?<edge_close>[\=\-\.]+)'
 
     @rex << '(?<to_arrow>[\<\>ox]*)\s'

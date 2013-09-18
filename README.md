@@ -138,6 +138,12 @@ See [Ultra Light Graphs](http://blog.0x10.co.uk/2013/03/ultra-light-graphs-ulg.h
 Changelog
 =========
 
+ULG 0.2.6, 2013-09-18
+---------------------
+
+* Better parsing of node labels to support edge characters (e.g. "192.168.0.0" is now a valid node label)
+* Multiple edges between two nodes
+
 ULG 0.2.3, 2013-05-15
 ---------------------
 

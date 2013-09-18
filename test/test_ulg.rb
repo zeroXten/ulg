@@ -5,9 +5,9 @@ class ULGTest < Test::Unit::TestCase
 
   def test_all_the_things
 
-    a_nodes = [ "anode", "a node", "   a node ", "  a node  " ]
-    b_nodes = [ "bnode", "b node", "   b node ", "  b node  " ]
-    edge_labels = [ "none", "edge", "ed ge", "   edge ", "  ed ge   " ]
+    a_nodes = [ "anode", "a node", "   a node ", "  a node  ", "a-no.de" ]
+    b_nodes = [ "bnode", "b node", "   b node ", "  b node  ", "b-no.de" ]
+    edge_labels = [ "none", "edge", "ed ge", "   edge ", "  ed ge   ", "e-dg.e" ]
 
     colours = [ "red", "none" ]
 
