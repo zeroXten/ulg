@@ -19,22 +19,22 @@ class ULG
     @rex = []
 
     @rex << '(?<from_open>[\[\<\(\{]*)'
-    @rex << '(?<from_label>[^\]\>\)\|\}\=\-\.]+)'
-    @rex << '(?<from_color>\|[^\]\>\)\} ]+)?'
-    @rex << '(?<from_close>[\]\>\)\}]*)\s+'
+    @rex << '(?<from_label>[^\]\>\)\|\}]+?)'
+    @rex << '(?<from_color>\|[^\]\>\)\} ]+?)?'
+    @rex << '(?<from_close>[\]\>\)\}]*)'
     
-    @rex << '(?<from_arrow>[\<\>ox]*)'
+    @rex << '\s(?<from_arrow>[\<\>ox]*)'
 
     @rex << '(?<edge_open>[\=\-\.]+)'
     @rex << '(?<edge_label>[^\=\-\|\.]*)'
     @rex << '(?<edge_color>\|[^\=\-\|\. ]+)?'
     @rex << '(?<edge_close>[\=\-\.]+)'
 
-    @rex << '(?<to_arrow>[\<\>ox]*)\s+'
+    @rex << '(?<to_arrow>[\<\>ox]*)\s'
 
     @rex << '(?<to_open>[\[\<\(\{]*)'
-    @rex << '(?<to_label>[^\]\>\)\|\}\=\-\.]+)'
-    @rex << '(?<to_color>\|[^\]\>\)\} ]+)?'
+    @rex << '(?<to_label>[^\]\>\)\|\}]+?)'
+    @rex << '(?<to_color>\|[^\]\>\)\} ]+?)?'
     @rex << '(?<to_close>[\]\>\)\}]*)'
 
     @arrow_regex = @rex.join '\s*'
