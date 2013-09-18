@@ -9,6 +9,7 @@ Gem::Specification.new do |s|
   s.files       = ["lib/ulg.rb"]
   s.executables << 'ulg'
   s.homepage    = 'https://github.com/zeroXten/ulg'
+  s.license     = 'MIT'
   s.requirements << 'ruby-graphviz'
   s.requirements << 'getopt/std'
   s.add_dependency('ruby-graphviz', ">= 1.0.9")
