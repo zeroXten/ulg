@@ -5,7 +5,7 @@ Ultra Light Graphs, or ULG, is a simple way of creating graph images from nothin
 
     (internet)	===>	[web dmz]
 
-Installaton
+Installation
 ===========
 
 Install the gem as usual
